@@ -12,11 +12,11 @@ IGNOREDPREFIXES = [
 ]
 
 REPLACEMAP = {"INTEGER PRIMARY KEY": "INTEGER AUTO_INCREMENT PRIMARY KEY",
-	"AUTOINCREMENT": "AUTO_INCREMENT",
-	"DEFAULT 't'": "DEFAULT '1'",
-	"DEFAULT 'f'": "DEFAULT '0'",
-	",'t'": ",'1'",
-	",'f'": ",'0'",
+    "AUTOINCREMENT": "AUTO_INCREMENT",
+    "DEFAULT 't'": "DEFAULT '1'",
+    "DEFAULT 'f'": "DEFAULT '0'",
+    ",'t'": ",'1'",
+    ",'f'": ",'0'",
 }
 
 def _replace_match_allcase(src, dst):
@@ -28,7 +28,7 @@ def _replace(line):
     if any(line.startswith(prefix) for prefix in IGNOREDPREFIXES):
         return
     for (src,dst) in REPLACEMAP.items():
-		line = line._replace_match_allcase(src, dst)
+        line = line._replace_match_allcase(src, dst)
     return line
 
 def _backticks(line, in_string):
