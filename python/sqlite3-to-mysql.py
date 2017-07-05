@@ -19,16 +19,16 @@ REPLACEMAP = {"INTEGER PRIMARY KEY": "INTEGER AUTO_INCREMENT PRIMARY KEY",
     ",'f'": ",'0'",
 }
 
-def _replace_match_allcase(src, dst):
+def _replace_match_allcase(line, src, dst):
     line = line.replace(src,dst)
-    line = line.replace(src.upper(),dst)
+    line = line.replace(src.lower(),dst)
     return line
 
 def _replace(line):
     if any(line.startswith(prefix) for prefix in IGNOREDPREFIXES):
         return
     for (src,dst) in REPLACEMAP.items():
-        line = line._replace_match_allcase(src, dst)
+        line = _replace_match_allcase(line, src, dst)
     return line
 
 def _backticks(line, in_string):
