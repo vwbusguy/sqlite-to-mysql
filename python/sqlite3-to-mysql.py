@@ -11,17 +11,25 @@ IGNOREDPREFIXES = [
     'INSERT INTO "sqlite_sequence"',
 ]
 
+REPLACEMAP = {"INTEGER PRIMARY KEY": "INTEGER AUTO_INCREMENT PRIMARY KEY",
+    "AUTOINCREMENT": "AUTO_INCREMENT",
+    "DEFAULT 't'": "DEFAULT '1'",
+    "DEFAULT 'f'": "DEFAULT '0'",
+    ",'t'": ",'1'",
+    ",'f'": ",'0'",
+}
+
+def _replace_match_allcase(line, src, dst):
+    line = line.replace(src,dst)
+    line = line.replace(src.lower(),dst)
+    return line
+
 def _replace(line):
     if any(line.startswith(prefix) for prefix in IGNOREDPREFIXES):
         return
-    line = line.replace("INTEGER PRIMARY KEY", "INTEGER AUTO_INCREMENT PRIMARY KEY")
-    line = line.replace("AUTOINCREMENT", "AUTO_INCREMENT")
-    line = line.replace("DEFAULT 't'", "DEFAULT '1'")
-    line = line.replace("DEFAULT 'f'", "DEFAULT '0'")
-    line = line.replace(",'t'", ",'1'")
-    line = line.replace(",'f'", ",'0'")
+    for (src,dst) in REPLACEMAP.items():
+        line = _replace_match_allcase(line, src, dst)
     return line
-
 
 def _backticks(line, in_string):
     """Replace double quotes by backticks outside (multiline) strings
