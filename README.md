@@ -9,7 +9,7 @@ This script is used to convert a sqlite3 .db file into a running mysql/mariadb 5
 
 The script works as a layer between sqlite and mysql to format the sqlite dump, create a new user and database in mysql, and restore all the tables and data in one shell line.
 
-# #Dependencies
+## Dependencies
 
 A running flavor of MySQL (eg, MariaDB).
 
