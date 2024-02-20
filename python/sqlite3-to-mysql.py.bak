@@ -27,7 +27,7 @@ def _replace_match_allcase(line, src, dst):
 def _replace(line):
     if any(line.startswith(prefix) for prefix in IGNOREDPREFIXES):
         return
-    for (src,dst) in list(REPLACEMAP.items()):
+    for (src,dst) in REPLACEMAP.items():
         line = _replace_match_allcase(line, src, dst)
     return line
 
@@ -126,7 +126,7 @@ def main():
     f.close()
     lines = (l for l in _process(opts, lines))
     for line in _replaceNewline(lines):
-       print(line)
+       print line,
 
 if __name__ == "__main__":
     main()
